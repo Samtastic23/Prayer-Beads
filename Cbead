@@ -1,0 +1,12 @@
+!alias Cbead <drac2>
+(ch:=character()).create_cc_nx((cc:="Bead of Curing"),0,1,'long','bubble',reset_by='1')
+i = argparse(&ARGS&).get('i')
+v = ch.get_cc(cc) or i
+f = "This bead contains the spells Cure Wounds and Lesser Restoration . While attuned to the Necklace of Prayer Beads, you can use a bonus action to cast the Cure Wounds or Lesser Restoration spell from it.\nOnce used, the Bead regains it's capability daily at dawn."
+foot = f"{ctx.prefix}{ctx.alias} [casting arguments] [-i]"
+if v:
+    ch.mod_cc(cc, -1) if not i else ''
+    return f"""cast "Cure Wounds" -l 2 -d -4 -d -1d4 -i &*& -phrase "using the {cc}!" -f "{f}" -f "{cc} {'' if i else '(-1)'}|{ch.cc_str(cc)}" -f "{foot}" """
+else:
+    return f"""embed -title "{name} tries to use the {cc}!" -desc "You're all out of uses!" -f "{f}" -f "{cc}|{ch.cc_str(cc)}" -footer "{foot}" """
+</drac2> -thumb https://www.dndbeyond.com/avatars/thumbnails/7/319/1000/1000/636284755345320839.jpeg
